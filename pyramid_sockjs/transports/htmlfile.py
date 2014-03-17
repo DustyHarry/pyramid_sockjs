@@ -59,7 +59,7 @@ class HTMLFileTransport(Response):
                 environ, start_response)
 
         write = start_response(self.status, self.headerlist)
-        prelude = PRELUDE % callback
+        prelude = PRELUDE % callback.encode('UTF-8')
         prelude += ' ' * 1024
         write(prelude)
 
