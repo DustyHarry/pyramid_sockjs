@@ -83,8 +83,12 @@ class HTMLFileTransport(Response):
                     message = message_frame(message)
 
                 if session.state == STATE_CLOSING:
-                    write("<script>\np(%s);\n</script>\r\n" %
-                          encode(close_frame('Go away!')))
+                    try:
+                        write("<script>\np(%s);\n</script>\r\n" %
+                              encode(close_frame('session closed','connection expired')))
+                        StopStreaming()
+                    except Exception as e:
+                        print "Error closing html streaming sockjs protocol"
                     session.closed()
                     break
 
