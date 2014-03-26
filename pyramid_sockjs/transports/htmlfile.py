@@ -23,15 +23,18 @@ PRELUDE = r"""
   <script>
       document.domain = document.domain;
       var c = parent.%s;
-      c.start();
+      try{
+        c.start();
+      } catch (e) { }
       function p(d) {
         try{
           c.message(d);
-        } catch (e) {
-        }
+        } catch (e) { }
       };
       window.onload = function() {
-        c.stop();
+        try{
+          c.stop();
+        } catch (e) { }
       };
   </script>
 </head><body><h2>Don't panic!</h2>
